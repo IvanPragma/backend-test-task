@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import textwrap
 from typing import Union
 
@@ -23,7 +24,26 @@ def break_line(text: str, line_width: int = 80) -> str:
     while '  ' in text:
         text = text.replace('  ', ' ')
 
-    return textwrap.fill(text, width=line_width)
+    lines = []
+    current_line = ''
+    current_line_len = 0
+    for letter in text:
+        if letter == '\n':
+            if current_line:
+                lines.append(current_line.strip())
+            current_line = ''
+            current_line_len = 0
+            continue
+        else:
+            current_line += letter
+        current_line_len += 1
+
+        if current_line_len >= line_width:
+            split_line = re.split('[ :;,\-.!)\n]', ''.join(reversed(current_line)), maxsplit=1)
+            lines.append(''.join(reversed(split_line[-1])).strip())
+            current_line = ''.join(reversed(split_line[0]))
+            current_line_len = len(current_line)
+    return '\n'.join(lines)
 
 
 def http_in_url_check(url: str) -> str:
