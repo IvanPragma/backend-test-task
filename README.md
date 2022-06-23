@@ -1,4 +1,8 @@
 # Парсер полезного контента сайта
+Парсер может работать как в режиме скрипта, так и в режиме веб-сервера (`flask`).
+В режиме веб-сервера необходимо отправить `GET` запрос по url `http://localhost:5000/`,
+передавая параметры через query-параметры `GET` запроса.
+# Запуск
 - Перейдите в папку с проектом
 - Выполните `docker build myimage .`
-- Выполните `docker run myimage {url} {line width} {parse image?} {save to file?}`
+- Выполните `docker run myimage {server mode?} {url} {line width} {parse image?} {save to file?}`
