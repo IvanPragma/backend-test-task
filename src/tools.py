@@ -43,6 +43,10 @@ def break_line(text: str, line_width: int = 80) -> str:
             lines.append(''.join(reversed(split_line[-1])).strip())
             current_line = ''.join(reversed(split_line[0]))
             current_line_len = len(current_line)
+
+    if current_line is not None:
+        lines.append(''.join(current_line).strip())
+
     return '\n'.join(lines)
 
 
